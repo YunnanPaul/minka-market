@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08271f">
+    <meta name="description" content="Inicia sesión o crea tu cuenta en Minka Market.">
+    <title>Cuenta | Minka Market</title>
+    <link rel="icon" href="/images/logo-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/styles.css?v=5.1.0">
+    <link rel="stylesheet" href="/css/auth.css?v=5.1.0">
+</head>
+<body class="auth-body">
+<main class="auth-shell">
+    <section class="auth-showcase">
+        <div class="auth-showcase-top">
+            <a class="auth-brand" href="/" aria-label="Volver a Minka Market">
+                <img src="/images/logo-mark.svg" alt="" width="52" height="52">
+                <span><strong>Minka Market</strong><small>Tu compra, más cerca</small></span>
+            </a>
+            <span class="auth-project-chip">Spring Boot · PostgreSQL</span>
+        </div>
+
+        <div class="showcase-copy">
+            <span class="auth-eyebrow">CUENTA DEL CLIENTE</span>
+            <h1>Compra fácil.<br><em>Controla cada pedido.</em></h1>
+            <p>Tu sesión conecta el carrito, los pedidos y el panel administrativo con una arquitectura por capas clara y segura.</p>
+
+            <div class="auth-feature-grid">
+                <article><i>01</i><div><b>Carrito persistente</b><span>Se conserva mediante HttpSession.</span></div></article>
+                <article><i>02</i><div><b>Pedidos trazables</b><span>Consulta productos, pago y estado.</span></div></article>
+                <article><i>03</i><div><b>Imágenes protegidas</b><span>Respaldo único ante rutas rotas.</span></div></article>
+            </div>
+        </div>
+
+        <div class="auth-product-scene" aria-hidden="true">
+            <div class="auth-product-card card-one"><img src="/images/products/arroz.svg" alt="" width="120" height="120"><span>Despensa</span></div>
+            <div class="auth-product-card card-two"><img src="/images/products/yogur-fresa.svg" alt="" width="120" height="120"><span>Lácteos</span></div>
+            <div class="auth-product-card card-three"><img src="/images/products/manzana.svg" alt="" width="120" height="120"><span>Frescos</span></div>
+        </div>
+
+    </section>
+
+    <section class="auth-panel">
+        <div class="auth-panel-inner">
+            <a class="back-link" href="/"><span>←</span> Volver a la tienda</a>
+
+            <div class="auth-card">
+                <div class="auth-card-top">
+                    <div>
+                        <span class="auth-eyebrow">ACCESO AL SISTEMA</span>
+                        <p>Inicia sesión o registra una cuenta nueva.</p>
+                    </div>
+                    <span class="secure-chip">● Sesión segura</span>
+                </div>
+
+                <div class="auth-tabs" role="tablist" aria-label="Acceso y registro">
+                    <button type="button" class="active" id="loginTab" role="tab" aria-controls="loginSection" aria-selected="true">Iniciar sesión</button>
+                    <button type="button" id="registerTab" role="tab" aria-controls="registerSection" aria-selected="false">Crear cuenta</button>
+                </div>
+
+                <section id="loginSection" role="tabpanel" aria-labelledby="loginTab">
+                    <div class="auth-heading">
+                        <h2>Qué bueno verte.</h2>
+                        <p>Ingresa con tu correo y contraseña para continuar.</p>
+                    </div>
+                    <form id="loginForm" novalidate>
+                        <div class="auth-field">
+                            <label for="loginEmail">Correo electrónico</label>
+                            <div class="input-shell"><span>@</span><input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required></div>
+                        </div>
+                        <div class="auth-field">
+                            <label for="loginPassword">Contraseña</label>
+                            <div class="password-field input-shell">
+                                <span>•</span>
+                                <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Tu contraseña" required>
+                                <button type="button" data-toggle-password="loginPassword" aria-label="Mostrar contraseña">Ver</button>
+                            </div>
+                        </div>
+                        <button class="auth-submit" id="loginSubmit" type="submit"><span>Ingresar al sistema</span><b>→</b></button>
+
+                    </form>
+                </section>
+
+                <section id="registerSection" role="tabpanel" aria-labelledby="registerTab" hidden>
+                    <div class="auth-heading">
+                        <h2>Crea tu cuenta.</h2>
+                        <p>Los datos se usarán para identificar y entregar tus pedidos.</p>
+                    </div>
+                    <form id="registerForm" novalidate>
+                        <div class="auth-field">
+                            <label for="registerName">Nombres y apellidos</label>
+                            <div class="input-shell"><span>◎</span><input id="registerName" name="nombreCompleto" type="text" autocomplete="name" maxlength="140" placeholder="Nombre completo" required></div>
+                        </div>
+                        <div class="two-fields">
+                            <div class="auth-field">
+                                <label for="registerEmail">Correo</label>
+                                <div class="input-shell"><span>@</span><input id="registerEmail" name="email" type="email" autocomplete="email" maxlength="180" placeholder="nombre@correo.com" required></div>
+                            </div>
+                            <div class="auth-field">
+                                <label for="registerPhone">Teléfono</label>
+                                <div class="input-shell"><span>＋</span><input id="registerPhone" name="telefono" type="tel" autocomplete="tel" maxlength="30" placeholder="+51 999 999 999" required></div>
+                            </div>
+                        </div>
+                        <div class="auth-field">
+                            <label for="registerAddress">Dirección de entrega</label>
+                            <textarea id="registerAddress" name="direccion" rows="3" autocomplete="street-address" maxlength="300" placeholder="Calle, número, distrito y referencia" required></textarea>
+                        </div>
+                        <div class="auth-field">
+                            <label for="registerPassword">Contraseña</label>
+                            <div class="password-field input-shell">
+                                <span>•</span>
+                                <input id="registerPassword" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="72" placeholder="Mínimo 8 caracteres" required>
+                                <button type="button" data-toggle-password="registerPassword" aria-label="Mostrar contraseña">Ver</button>
+                            </div>
+                            <small>Usa al menos 8 caracteres. No reutilices una contraseña importante.</small>
+                        </div>
+                        <button class="auth-submit" id="registerSubmit" type="submit"><span>Crear cuenta y continuar</span><b>→</b></button>
+                    </form>
+                </section>
+
+                <div class="auth-message" id="authMessage" role="alert" hidden></div>
+            </div>
+
+            <p class="auth-legal">Proyecto académico. Los pagos son simulados y no procesan información bancaria real.</p>
+        </div>
+    </section>
+</main>
+<script src="/js/api.js?v=5.1.0"></script>
+<script src="/js/auth.js?v=5.1.0"></script>
+</body>
+</html>

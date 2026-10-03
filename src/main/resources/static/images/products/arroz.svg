@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" role="img" aria-label="Arroz Superior">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffbeb"/>
+      <stop offset="1" stop-color="#fef3c7"/>
+    </linearGradient>
+    <linearGradient id="packGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="800" rx="70" fill="url(#bgGrad)"/>
+  <circle cx="115" cy="120" r="80" fill="#f59e0b" opacity=".13"/>
+  <circle cx="710" cy="670" r="115" fill="#b45309" opacity=".10"/>
+  <path d="M40 665 Q210 600 335 700 T760 650" fill="none" stroke="#f59e0b" stroke-width="22" opacity=".12"/>
+  <text x="70" y="95" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="900" fill="#b45309" letter-spacing="1.5">GRAN VALLE</text>
+  <g>
+        <path d="M292 235 Q400 190 508 235 L535 570 Q400 620 265 570 Z" fill="url(#packGrad)" stroke="#b45309" stroke-width="8"/>
+        <path d="M300 250 Q400 215 500 250" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="9"/>
+        
+      <rect x="278" y="345" width="244" height="168" rx="28" fill="#fef3c7" opacity="0.98"/>
+      <text x="400" y="392" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="800" fill="#10231c">Arroz Superior</text>
+      <text x="400" y="490" text-anchor="middle" font-family="Arial" font-size="24" font-weight="700" fill="#b45309">1 kg</text>
+    
+        <circle cx="400" cy="290" r="38" fill="#22c55e" opacity=".9"/>
+        </g>
+  <g transform="translate(608 72)">
+    <rect width="125" height="44" rx="22" fill="#ffffff" opacity=".94"/>
+    <circle cx="24" cy="22" r="11" fill="#b45309"/>
+    <text x="43" y="29" font-family="Arial" font-size="18" font-weight="800" fill="#17352c">MINKA</text>
+  </g>
+</svg>

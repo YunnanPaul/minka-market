@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#08271f">
+    <title>Administración | Minka Market</title>
+    <link rel="icon" href="/images/logo-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/admin.css?v=5.1.0">
+</head>
+<body>
+<div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+        <a class="admin-logo" href="/">
+            <img src="/images/logo-mark.svg" alt="" width="48" height="48">
+            <span><b>Minka Market</b><small>Centro de control</small></span>
+        </a>
+
+        <div class="sidebar-caption">NAVEGACIÓN</div>
+        <nav class="admin-nav" aria-label="Secciones del panel">
+            <button class="active" type="button" data-section="dashboard"><span>⌂</span><div><b>Resumen</b><small>Indicadores generales</small></div></button>
+            <button type="button" data-section="products"><span>▦</span><div><b>Productos</b><small>Catálogo e imágenes</small></div></button>
+            <button type="button" data-section="orders"><span>▤</span><div><b>Pedidos</b><small>Ventas y estados</small></div></button>
+            <button type="button" data-section="users"><span>◎</span><div><b>Usuarios</b><small>Cuentas registradas</small></div></button>
+        </nav>
+
+        <div class="sidebar-help">
+            <span>IMÁGENES ACTIVAS</span>
+            <b>Respaldo automático</b>
+            <p>Las imágenes subidas se guardan en la carpeta <code>uploads</code> y se sirven desde Spring Boot.</p>
+        </div>
+
+        <div class="sidebar-bottom">
+            <a href="/">← Volver a la tienda</a>
+            <button type="button" id="adminLogout">Cerrar sesión</button>
+        </div>
+    </aside>
+
+    <main class="admin-main">
+        <header class="admin-topbar">
+            <div class="topbar-title">
+                <button class="mobile-menu-button" id="mobileMenuButton" type="button" aria-label="Abrir menú">☰</button>
+                <div><span id="sectionEyebrow">PANEL GENERAL</span><h1 id="sectionTitle">Resumen</h1></div>
+            </div>
+            <div class="admin-user">
+                <div><b id="adminUserName">Cargando...</b><small id="adminUserEmail"></small></div>
+                <span id="adminUserInitial">A</span>
+            </div>
+        </header>
+
+        <section class="admin-section active" id="section-dashboard">
+            <div class="welcome-panel">
+                <div><span>CONTROL OPERATIVO</span><h2>Tu minimarket, en una sola vista.</h2><p>Revisa inventario, pedidos, usuarios e imágenes desde un panel conectado directamente a la API REST.</p></div>
+                <button type="button" data-go-section="products">Gestionar catálogo <b>→</b></button>
+            </div>
+
+            <div class="metric-grid">
+                <article><span class="metric-icon green">▦</span><div><small>Productos activos</small><strong id="metricProducts">—</strong><p>Disponibles en la tienda</p></div></article>
+                <article><span class="metric-icon amber">!</span><div><small>Bajo stock</small><strong id="metricLowStock">—</strong><p>5 unidades o menos</p></div></article>
+                <article><span class="metric-icon blue">▤</span><div><small>Pedidos</small><strong id="metricOrders">—</strong><p>Compras registradas</p></div></article>
+                <article><span class="metric-icon purple">S/</span><div><small>Ventas acumuladas</small><strong id="metricSales">—</strong><p>Pedidos no cancelados</p></div></article>
+            </div>
+
+            <div class="dashboard-grid">
+                <article class="admin-card">
+                    <div class="card-heading"><div><span>OPERACIÓN</span><h2>Pedidos recientes</h2></div><button type="button" data-go-section="orders">Ver todos</button></div>
+                    <div class="recent-orders" id="recentOrders"><div class="admin-skeleton"></div></div>
+                </article>
+                <article class="admin-card">
+                    <div class="card-heading"><div><span>INVENTARIO</span><h2>Productos por reponer</h2></div><button type="button" data-go-section="products">Gestionar</button></div>
+                    <div class="low-stock-list" id="lowStockList"><div class="admin-skeleton"></div></div>
+                </article>
+            </div>
+
+            <article class="admin-card architecture-card">
+                <div><span>ARQUITECTURA DEL PROYECTO</span><h2>Controller → Service → Repository → PostgreSQL</h2><p>El frontend consume recursos REST mediante Fetch API. El carrito se conserva temporalmente con HttpSession y el pedido congela precio, cantidad e imagen.</p></div>
+                <div class="architecture-flow"><b>HTML / CSS / JS</b><i>→</i><b>REST Controller</b><i>→</i><b>Service</b><i>→</i><b>JPA Repository</b><i>→</i><b>PostgreSQL</b></div>
+            </article>
+        </section>
+
+        <section class="admin-section" id="section-products" hidden>
+            <div class="section-toolbar product-toolbar">
+                <div class="admin-search"><span>⌕</span><input id="productSearch" type="search" placeholder="Buscar por nombre, marca o SKU"></div>
+                <div class="toolbar-actions">
+                    <button class="primary-admin-button" id="newProductButton" type="button">＋ Nuevo producto</button>
+                </div>
+            </div>
+
+            <div class="image-health-panel">
+                <div class="image-health-icon">▧</div>
+                <div><b>Gestor de imágenes mejorado</b><p id="imageHealthLabel">Las rutas se verifican en el navegador y cuentan con una imagen de respaldo automática.</p></div>
+                <span>JPG · PNG · WEBP · GIF</span>
+            </div>
+
+            <article class="admin-card table-card">
+                <div class="table-summary"><span id="productCountLabel">Cargando productos...</span><span>Desactivar conserva los pedidos históricos.</span></div>
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead><tr><th>Producto</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Imagen</th><th>Estado</th><th></th></tr></thead>
+                        <tbody id="productsTableBody"><tr><td colspan="7"><div class="admin-skeleton"></div></td></tr></tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+
+        <section class="admin-section" id="section-orders" hidden>
+            <div class="section-toolbar">
+                <div class="admin-search"><span>⌕</span><input id="orderSearch" type="search" placeholder="Buscar por código, cliente o correo"></div>
+                <button class="secondary-admin-button" id="refreshOrdersButton" type="button">↻ Actualizar</button>
+            </div>
+            <article class="admin-card table-card">
+                <div class="table-summary"><span id="orderCountLabel">Cargando pedidos...</span><span>Cancelar repone automáticamente el inventario.</span></div>
+                <div class="table-wrap">
+                    <table class="admin-table orders-table">
+                        <thead><tr><th>Pedido</th><th>Cliente</th><th>Detalle</th><th>Total</th><th>Estado</th></tr></thead>
+                        <tbody id="ordersTableBody"><tr><td colspan="5"><div class="admin-skeleton"></div></td></tr></tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+
+        <section class="admin-section" id="section-users" hidden>
+            <article class="admin-card table-card">
+                <div class="table-summary"><span id="userCountLabel">Cargando usuarios...</span><span>Usuarios registrados en PostgreSQL.</span></div>
+                <div class="table-wrap">
+                    <table class="admin-table">
+                        <thead><tr><th>Usuario</th><th>Contacto</th><th>Dirección</th><th>Rol</th><th>Registro</th></tr></thead>
+                        <tbody id="usersTableBody"><tr><td colspan="5"><div class="admin-skeleton"></div></td></tr></tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+    </main>
+</div>
+
+<div class="admin-overlay" id="adminOverlay" hidden></div>
+<div class="admin-modal" id="productFormModal" role="dialog" aria-modal="true" aria-labelledby="productFormTitle" hidden>
+    <button class="admin-modal-close" id="closeProductModal" type="button" aria-label="Cerrar">×</button>
+    <div class="modal-heading"><span>GESTIÓN DE CATÁLOGO</span><h2 id="productFormTitle">Nuevo producto</h2><p>Sube una imagen y comprueba su vista previa antes de guardar.</p></div>
+
+    <form id="productForm">
+        <input type="hidden" id="productId">
+        <div class="product-form-layout">
+            <div class="image-editor">
+                <div class="image-drop-zone" id="imageDropZone" tabindex="0" role="button" aria-label="Seleccionar o arrastrar imagen">
+                    <div class="image-preview"><img id="productImagePreview" data-product-image="true" src="/images/product-placeholder.svg" alt="Vista previa del producto"></div>
+                    <div class="drop-zone-copy"><b>Arrastra una imagen aquí</b><span>o haz clic para seleccionarla</span></div>
+                </div>
+                <input id="productImageFile" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/jpg,image/png,image/webp,image/gif" hidden>
+                <div class="image-action-row">
+                    <label class="upload-button" for="productImageFile">Seleccionar imagen</label>
+                    <button class="image-secondary-button" id="clearProductImageButton" type="button">Quitar</button>
+                </div>
+                <div class="image-upload-status" id="imageUploadStatus" data-state="idle"><span></span><div><b>Sin archivo nuevo</b><small id="imageFileMeta">Usará la ruta guardada o el respaldo.</small></div></div>
+                <div class="admin-field image-url-field">
+                    <label for="productImageUrl">Ruta o URL de imagen <small>opcional</small></label>
+                    <div class="url-test-row"><input id="productImageUrl" type="text" inputmode="url" maxlength="500" autocomplete="off" spellcheck="false" placeholder="/uploads/products/... o https://..."><button id="testImageButton" type="button">Probar</button></div>
+                    <small class="field-help">Sin imagen, el sistema asignará automáticamente un respaldo profesional.</small>
+                </div>
+            </div>
+
+            <div class="form-fields">
+                <div class="two-columns">
+                    <div class="admin-field"><label for="productSku">SKU</label><input id="productSku" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="DES-009" required></div>
+                    <div class="admin-field"><label for="productCategory">Categoría</label><select id="productCategory" required></select></div>
+                </div>
+                <div class="admin-field"><label for="productName">Nombre del producto</label><input id="productName" type="text" maxlength="160" autocomplete="off" placeholder="Ej. Café molido premium 250 g" required></div>
+                <div class="two-columns">
+                    <div class="admin-field"><label for="productBrand">Marca</label><input id="productBrand" type="text" maxlength="100" autocomplete="off" required></div>
+                    <div class="admin-field"><label for="productUnit">Presentación</label><input id="productUnit" type="text" maxlength="40" autocomplete="off" placeholder="botella, bolsa, kg..." required></div>
+                </div>
+                <div class="admin-field"><label for="productDescription">Descripción</label><textarea id="productDescription" rows="4" maxlength="1000" placeholder="Describe las características principales del producto." required></textarea></div>
+                <div class="three-columns">
+                    <div class="admin-field"><label for="productPrice">Precio actual</label><input id="productPrice" type="number" min="0.01" max="9999999999.99" step="0.01" inputmode="decimal" required></div>
+                    <div class="admin-field"><label for="productOldPrice">Precio anterior</label><input id="productOldPrice" type="number" min="0.01" max="9999999999.99" step="0.01" inputmode="decimal"></div>
+                    <div class="admin-field"><label for="productStock">Stock</label><input id="productStock" type="number" min="0" max="2147483647" step="1" inputmode="numeric" required></div>
+                </div>
+                <div class="toggle-row">
+                    <label><input id="productFeatured" type="checkbox"><span></span> Producto destacado</label>
+                    <label><input id="productActive" type="checkbox" checked><span></span> Producto activo</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-actions"><button class="secondary-admin-button" id="cancelProductButton" type="button">Cancelar</button><button class="primary-admin-button" id="saveProductButton" type="submit">Guardar producto</button></div>
+    </form>
+</div>
+
+<div class="toast-stack" id="adminToastStack" aria-live="polite"></div>
+<script src="/js/api.js?v=5.1.0"></script>
+<script src="/js/images.js?v=5.1.0"></script>
+<script src="/js/admin.js?v=5.1.0"></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minka Market: minimarket peruano en línea con productos de despensa, frescos, bebidas y más.">
+    <title>Minka Market | Tu minimarket en línea</title>
+    <link rel="icon" href="/images/logo-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/styles.css?v=5.1.0">
+</head>
+<body>
+<div class="announcement">
+    <span id="freeDeliveryAnnouncement">🚚 Delivery gratis desde S/ 80.00</span>
+    <span class="announcement-divider">•</span>
+    <span>Recojo en tienda sin costo</span>
+</div>
+
+<header class="site-header" id="siteHeader">
+    <div class="header-inner container">
+        <a class="brand" href="/" aria-label="Ir al inicio de Minka Market">
+            <img src="/images/logo-mark.svg" alt="" width="48" height="48">
+            <span>
+                <strong>Minka Market</strong>
+                <small>Tu compra, más cerca</small>
+            </span>
+        </a>
+
+        <form class="search-box" id="searchForm" role="search">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+            <input id="searchInput" type="search" autocomplete="off" placeholder="Buscar arroz, bebidas, limpieza..." aria-label="Buscar productos">
+            <button type="button" id="clearSearch" class="clear-search" aria-label="Limpiar búsqueda">×</button>
+        </form>
+
+        <nav class="header-actions" aria-label="Acciones principales">
+            <a class="icon-action desktop-action" href="/mis-pedidos" id="ordersLink">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 3h12l2 4v14H4V7l2-4Zm-2 4h16M9 11h6M9 15h6"/></svg>
+                <span>Mis pedidos</span>
+            </a>
+            <button class="icon-action" id="accountButton" type="button" aria-haspopup="true" aria-expanded="false">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 21a8 8 0 0 0-16 0m8-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/></svg>
+                <span id="accountLabel">Ingresar</span>
+            </button>
+            <button class="cart-button" id="openCartButton" type="button" aria-label="Abrir carrito">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.8a2 2 0 0 0 2-1.6L21 8H7M10 21h.01M18 21h.01"/></svg>
+                <span>Carrito</span>
+                <b id="cartBadge">0</b>
+            </button>
+        </nav>
+
+        <div class="account-menu" id="accountMenu" hidden>
+            <div class="account-menu-user" id="accountMenuUser" hidden>
+                <strong id="accountName"></strong>
+                <small id="accountEmail"></small>
+            </div>
+            <a href="/login" id="loginMenuItem">Iniciar sesión</a>
+            <a href="/mis-pedidos" id="myOrdersMenuItem" hidden>Mis pedidos</a>
+            <a href="/admin" id="adminMenuItem" hidden>Panel administrativo</a>
+            <button type="button" id="logoutButton" hidden>Cerrar sesión</button>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero container">
+        <div class="hero-copy">
+            <span class="eyebrow">MINIMARKET DIGITAL • LIMA</span>
+            <h1>Todo lo que necesitas, <em>sin perder tiempo.</em></h1>
+            <p>Despensa, frescos, bebidas, snacks y cuidado del hogar en una tienda diseñada para comprar rápido y con claridad.</p>
+            <div class="hero-actions">
+                <a class="primary-button" href="#catalogo">Ver productos</a>
+                <button class="secondary-button" type="button" data-category="destacados">Explorar ofertas</button>
+            </div>
+            <div class="hero-trust">
+                <span><b>36</b> productos disponibles</span>
+                <span><b id="heroIgvRate">18%</b> IGV calculado</span>
+                <span><b>30 min</b> sesión segura</span>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="/images/hero-market.svg" alt="Bolsa de compras con productos de minimarket" width="680" height="520">
+            <div class="floating-card floating-card-one">
+                <span>⚡</span>
+                <div><b>Compra ágil</b><small>Carrito en tiempo real</small></div>
+            </div>
+            <div class="floating-card floating-card-two">
+                <span>✓</span>
+                <div><b>Stock validado</b><small>Antes de confirmar</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits container" aria-label="Beneficios">
+        <article><span>🛍️</span><div><b>Catálogo visual</b><small>Revisa imagen, precio y stock.</small></div></article>
+        <article><span>🧾</span><div><b>Totales transparentes</b><small>Subtotal, IGV y envío detallados.</small></div></article>
+        <article><span>📦</span><div><b>Pedidos registrados</b><small>Consulta el historial de compras.</small></div></article>
+        <article><span>🔒</span><div><b>Sesión protegida</b><small>Carrito gestionado con HttpSession.</small></div></article>
+    </section>
+
+    <section class="category-section container" aria-labelledby="categoriesTitle">
+        <div class="section-heading compact-heading">
+            <div>
+                <span class="eyebrow">COMPRA POR SECCIÓN</span>
+                <h2 id="categoriesTitle">¿Qué buscas hoy?</h2>
+            </div>
+        </div>
+        <div class="category-grid" id="categoryGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="promo-grid container" aria-label="Promociones">
+        <article class="promo-card promo-green">
+            <div>
+                <span>FRESCOS DE LA SEMANA</span>
+                <h3>Arma una compra más natural</h3>
+                <button type="button" data-category="frescos">Ver frutas y verduras →</button>
+            </div>
+            <div class="promo-emoji">🥑</div>
+        </article>
+        <article class="promo-card promo-orange">
+            <div>
+                <span>PRECIO ESPECIAL</span>
+                <h3>Snacks para compartir</h3>
+                <button type="button" data-category="snacks">Explorar snacks →</button>
+            </div>
+            <div class="promo-emoji">🍫</div>
+        </article>
+    </section>
+
+    <section class="catalog-section container" id="catalogo" aria-labelledby="catalogTitle">
+        <div class="section-heading catalog-heading">
+            <div>
+                <span class="eyebrow" id="catalogEyebrow">CATÁLOGO COMPLETO</span>
+                <h2 id="catalogTitle">Productos para tu día a día</h2>
+                <p id="resultSummary">Cargando productos...</p>
+            </div>
+            <div class="catalog-tools">
+                <label for="sortSelect">Ordenar por</label>
+                <select id="sortSelect">
+                    <option value="featured">Recomendados</option>
+                    <option value="price-asc">Menor precio</option>
+                    <option value="price-desc">Mayor precio</option>
+                    <option value="name">Nombre</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="active-filter" id="activeFilter" hidden>
+            <span id="activeFilterText"></span>
+            <button type="button" id="clearFilter">Quitar filtro</button>
+        </div>
+
+        <div class="product-grid" id="productGrid" aria-live="polite" aria-busy="true">
+            <div class="product-skeleton"></div><div class="product-skeleton"></div><div class="product-skeleton"></div><div class="product-skeleton"></div>
+        </div>
+
+        <div class="catalog-error" id="catalogError" hidden>
+            <div class="catalog-error-icon" aria-hidden="true">↻</div>
+            <div>
+                <h3>No pudimos cargar los productos</h3>
+                <p id="catalogErrorMessage">Comprueba que la aplicación y PostgreSQL estén activos.</p>
+            </div>
+            <button class="primary-button" id="retryCatalogButton" type="button">Reintentar</button>
+        </div>
+
+        <div class="empty-state" id="emptyProducts" hidden>
+            <div>🔎</div>
+            <h3>No encontramos productos</h3>
+            <p>Prueba con otra palabra o elimina el filtro seleccionado.</p>
+            <button class="secondary-button" id="resetCatalogButton" type="button">Mostrar todo</button>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <div class="footer-brand">
+            <img src="/images/logo-mark.svg" alt="" width="52" height="52">
+            <div><b>Minka Market</b><p>Mini E-Commerce educativo con arquitectura por capas.</p></div>
+        </div>
+        <div><b>Compra</b><a href="#catalogo">Productos</a><a href="/mis-pedidos">Mis pedidos</a></div>
+        <div><b>Tecnología</b><span>Spring Boot</span><span>PostgreSQL</span></div>
+        <div><b>Atención</b><span id="storeSchedule">Lun-Dom: 8:00 a 22:00</span><span id="storeAddress">Av. Los Emprendedores 245, Lima</span></div>
+    </div>
+    <div class="container footer-bottom"><span>© 2026 Minka Market</span><span>Spring Boot · PostgreSQL · Fetch API</span></div>
+</footer>
+
+<div class="overlay" id="overlay" hidden></div>
+
+<aside class="cart-drawer" id="cartDrawer" aria-labelledby="cartTitle" aria-hidden="true">
+    <div class="drawer-header">
+        <div><span>Tu selección</span><h2 id="cartTitle">Carrito de compras</h2></div>
+        <button class="close-button" id="closeCartButton" type="button" aria-label="Cerrar carrito">×</button>
+    </div>
+    <div class="cart-content" id="cartContent"></div>
+    <div class="cart-empty" id="cartEmpty" hidden>
+        <img src="/images/empty-cart.svg" alt="" width="240" height="173">
+        <h3>Tu carrito está vacío</h3>
+        <p>Agrega productos del catálogo para comenzar.</p>
+        <button type="button" class="primary-button" id="continueShoppingButton">Seguir comprando</button>
+    </div>
+    <div class="drawer-summary" id="cartSummary" hidden>
+        <div><span>Subtotal</span><b id="cartSubtotal">S/ 0.00</b></div>
+        <div><span id="cartIgvLabel">IGV (18%)</span><b id="cartIgv">S/ 0.00</b></div>
+        <div class="summary-total"><span>Total antes de envío</span><strong id="cartTotal">S/ 0.00</strong></div>
+        <button class="checkout-button" id="checkoutButton" type="button">Continuar con el pedido</button>
+        <button class="link-button danger-link" id="emptyCartButton" type="button">Vaciar carrito</button>
+    </div>
+</aside>
+
+<div class="modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="productModalTitle" hidden>
+    <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">×</button>
+    <div class="product-modal-grid">
+        <div class="product-modal-image"><img id="productModalImage" data-product-image="true" src="/images/product-placeholder.svg" alt=""></div>
+        <div class="product-modal-info">
+            <span class="product-category" id="productModalCategory"></span>
+            <h2 id="productModalTitle"></h2>
+            <p class="product-brand" id="productModalBrand"></p>
+            <p class="product-description" id="productModalDescription"></p>
+            <div class="product-modal-price"><strong id="productModalPrice"></strong><del id="productModalOldPrice"></del></div>
+            <div class="stock-line" id="productModalStock"></div>
+            <div class="quantity-row">
+                <label for="modalQuantity">Cantidad</label>
+                <div class="quantity-control large-control">
+                    <button type="button" id="modalMinus">−</button>
+                    <input id="modalQuantity" type="number" min="1" value="1">
+                    <button type="button" id="modalPlus">+</button>
+                </div>
+            </div>
+            <button class="primary-button full-button" id="modalAddButton" type="button">Agregar al carrito</button>
+            <ul class="product-assurances">
+                <li>✓ Precio y stock validados al comprar</li>
+                <li>✓ Detalle del producto visible en tu pedido</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal checkout-modal" id="checkoutModal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle" hidden>
+    <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">×</button>
+    <div class="checkout-header">
+        <span class="eyebrow">CONFIRMACIÓN</span>
+        <h2 id="checkoutTitle">Finaliza tu pedido</h2>
+        <p>El sistema volverá a validar el inventario antes de registrar la compra.</p>
+    </div>
+    <form id="checkoutForm">
+        <fieldset>
+            <legend>1. Tipo de entrega</legend>
+            <label class="choice-card">
+                <input type="radio" name="tipoEntrega" value="RECOJO_TIENDA" checked>
+                <span class="choice-icon">🏪</span>
+                <span><b>Recojo en tienda</b><small id="pickupAddress">Av. Los Emprendedores 245, Lima · Sin costo</small></span>
+            </label>
+            <label class="choice-card">
+                <input type="radio" name="tipoEntrega" value="DELIVERY">
+                <span class="choice-icon">🛵</span>
+                <span><b>Delivery</b><small id="deliveryFeeText">S/ 5.90 o gratis desde S/ 80.00</small></span>
+            </label>
+        </fieldset>
+
+        <div class="form-group" id="deliveryAddressGroup" hidden>
+            <label for="deliveryAddress">Dirección de entrega</label>
+            <textarea id="deliveryAddress" rows="2" maxlength="350" placeholder="Calle, número, distrito y referencia"></textarea>
+        </div>
+
+        <fieldset>
+            <legend>2. Método de pago</legend>
+            <label class="choice-card compact-choice">
+                <input type="radio" name="metodoPago" value="YAPE_PLIN" checked>
+                <span class="choice-icon">📱</span><span><b>Yape / Plin</b><small>Aprobación simulada para el proyecto</small></span>
+            </label>
+            <label class="choice-card compact-choice">
+                <input type="radio" name="metodoPago" value="TARJETA_DEMO">
+                <span class="choice-icon">💳</span><span><b>Tarjeta demo</b><small>No procesa datos bancarios reales</small></span>
+            </label>
+            <label class="choice-card compact-choice">
+                <input type="radio" name="metodoPago" value="EFECTIVO">
+                <span class="choice-icon">💵</span><span><b>Efectivo</b><small>El pedido queda pendiente de pago</small></span>
+            </label>
+        </fieldset>
+
+        <div class="form-group">
+            <label for="orderNotes">Indicaciones opcionales</label>
+            <textarea id="orderNotes" rows="2" maxlength="500" placeholder="Ejemplo: llamar al llegar"></textarea>
+        </div>
+
+        <div class="checkout-summary" id="checkoutSummary"></div>
+        <button class="checkout-button" id="confirmOrderButton" type="submit">Confirmar pedido</button>
+        <p class="demo-note">Esta aplicación simula el pago con fines académicos. No solicita datos reales de tarjeta.</p>
+    </form>
+</div>
+
+<div class="modal order-success-modal" id="orderSuccessModal" role="dialog" aria-modal="true" aria-labelledby="successTitle" hidden>
+    <div class="success-check">✓</div>
+    <h2 id="successTitle">¡Pedido registrado!</h2>
+    <p>Tu código de seguimiento es:</p>
+    <strong id="successOrderCode"></strong>
+    <p id="successOrderMessage"></p>
+    <div class="success-actions">
+        <a class="primary-button" href="/mis-pedidos">Ver mis pedidos</a>
+        <button class="secondary-button" type="button" id="successContinue">Seguir comprando</button>
+    </div>
+</div>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+<script src="/js/api.js?v=5.1.0"></script>
+<script src="/js/images.js?v=5.1.0"></script>
+<script src="/js/app.js?v=5.1.0"></script>
+</body>
+</html>

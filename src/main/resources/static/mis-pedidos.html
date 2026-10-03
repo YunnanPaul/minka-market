@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a3529">
+    <meta name="description" content="Consulta tus pedidos y su estado en Minka Market.">
+    <title>Mis pedidos | Minka Market</title>
+    <link rel="icon" href="/images/logo-mark.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/css/styles.css?v=5.1.0">
+    <link rel="stylesheet" href="/css/orders.css?v=5.1.0">
+</head>
+<body class="orders-body">
+<header class="orders-header">
+    <div class="container orders-header-inner">
+        <a class="orders-brand" href="/" aria-label="Volver a Minka Market">
+            <img src="/images/logo-mark.svg" alt="" width="48" height="48">
+            <span><strong>Minka Market</strong><small>Centro de pedidos</small></span>
+        </a>
+        <nav class="orders-nav" aria-label="Navegación de cuenta">
+            <a href="/#catalogo"><span>←</span> Seguir comprando</a>
+            <a href="/admin" id="ordersAdminLink" hidden>Administración</a>
+            <button type="button" id="ordersLogout">Cerrar sesión</button>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="orders-hero">
+        <div class="container orders-hero-inner">
+            <div class="orders-hero-copy">
+                <span class="orders-eyebrow">HISTORIAL DE COMPRA</span>
+                <h1>Todo lo que pediste,<br><em>bien organizado.</em></h1>
+                <p id="ordersGreeting">Cargando tu cuenta y tus compras registradas…</p>
+                <div class="orders-hero-actions">
+                    <a class="orders-primary-link" href="/#catalogo">Explorar productos <span>→</span></a>
+                    <span class="orders-account-chip"><i id="ordersUserInitial">M</i><b id="ordersUserName">Mi cuenta</b></span>
+                </div>
+            </div>
+
+            <div class="orders-metrics" aria-label="Resumen de pedidos">
+                <article>
+                    <span>Pedidos realizados</span>
+                    <strong id="ordersCount">—</strong>
+                    <small>Desde el más reciente</small>
+                </article>
+                <article>
+                    <span>Total comprado</span>
+                    <strong id="ordersTotalSpent">—</strong>
+                    <small>Pedidos no cancelados</small>
+                </article>
+                <article>
+                    <span>En proceso</span>
+                    <strong id="ordersActiveCount">—</strong>
+                    <small>Pendientes de entrega</small>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="container orders-content">
+        <div class="orders-content-heading">
+            <div>
+                <span class="orders-eyebrow">SEGUIMIENTO</span>
+                <h2>Pedidos registrados</h2>
+                <p>Cada pedido conserva los productos, el precio y la imagen utilizados al momento de la compra.</p>
+            </div>
+            <div class="orders-controls">
+                <label class="orders-search">
+                    <span>⌕</span>
+                    <input id="orderSearch" type="search" placeholder="Buscar código o producto" autocomplete="off">
+                </label>
+                <label class="orders-select">
+                    <span class="sr-only">Filtrar por estado</span>
+                    <select id="orderStatusFilter">
+                        <option value="">Todos los estados</option>
+                        <option value="PENDIENTE">Pendiente</option>
+                        <option value="PAGADO">Pagado</option>
+                        <option value="PREPARANDO">Preparando</option>
+                        <option value="LISTO">Listo</option>
+                        <option value="ENVIADO">Enviado</option>
+                        <option value="ENTREGADO">Entregado</option>
+                        <option value="CANCELADO">Cancelado</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <section class="orders-list" id="ordersList" aria-live="polite" aria-busy="true">
+            <div class="order-skeleton"></div>
+            <div class="order-skeleton"></div>
+        </section>
+
+        <section class="orders-empty" id="ordersEmpty" hidden>
+            <div class="orders-empty-image"><img src="/images/empty-cart.svg" alt="" width="240" height="180"></div>
+            <span class="orders-eyebrow">SIN RESULTADOS</span>
+            <h2>Aún no hay pedidos para mostrar</h2>
+            <p id="ordersEmptyText">Agrega productos al carrito y confirma tu primera compra.</p>
+            <a class="orders-primary-link" href="/#catalogo">Explorar productos <span>→</span></a>
+        </section>
+    </section>
+</main>
+
+<footer class="orders-footer">
+    <div class="container">
+        <span>Proyecto académico · Spring Boot + PostgreSQL</span>
+        <a href="/">Minka Market</a>
+    </div>
+</footer>
+
+<div class="toast-stack" id="toastStack" aria-live="polite"></div>
+<script src="/js/api.js?v=5.1.0"></script>
+<script src="/js/images.js?v=5.1.0"></script>
+<script src="/js/orders.js?v=5.1.0"></script>
+</body>
+</html>
